@@ -1,0 +1,29 @@
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5001:5000"
+    environment:
+      PORT: 5000
+      DB_HOST: database
+      DB_USER: root
+      DB_PASSWORD: 2310
+      DB_NAME: quiz_battle
+    depends_on:
+      - database
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+  database:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 2310
+      MYSQL_DATABASE: quiz_battle
+    ports:
+      - "3307:3306"
